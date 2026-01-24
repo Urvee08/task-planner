@@ -33,6 +33,9 @@ public class User {
 	private String password;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Task> tasks;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Category> categories;
 
 	public User() {
@@ -86,12 +89,22 @@ public class User {
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
+	
+
+	public List<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
+	}
 
 	@Override
 	public String toString() {
 		return "User [user_id=" + user_id + ", username=" + username + ", email=" + email + ", password=" + password
-				+ ", categories=" + categories + "]";
+				+ ", tasks=" + tasks + ", categories=" + categories + "]";
 	}
+
 	
 	
 	

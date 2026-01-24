@@ -59,7 +59,7 @@ public class Task {
 	}
 
 	public Task(UUID task_id, String title, TaskStatus status, Priority priority, LocalDate created_at,
-			LocalDate due_date, Category category) {
+			LocalDate due_date, Category category, User user) {
 		super();
 		this.task_id = task_id;
 		this.title = title;
@@ -68,6 +68,7 @@ public class Task {
 		this.created_at = created_at;
 		this.due_date = due_date;
 		this.category = category;
+		this.user = user;
 	}
 
 	public UUID getTask_id() {
@@ -125,6 +126,15 @@ public class Task {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public List<SubTask> getSubtasks() {
 		return subtasks;
@@ -137,9 +147,11 @@ public class Task {
 	@Override
 	public String toString() {
 		return "Task [task_id=" + task_id + ", title=" + title + ", status=" + status + ", priority=" + priority
-				+ ", created_at=" + created_at + ", due_date=" + due_date + ", category=" + category + ", subtasks="
-				+ subtasks + "]";
+				+ ", created_at=" + created_at + ", due_date=" + due_date + ", category=" + category + ", user=" + user
+				+ ", subtasks=" + subtasks + "]";
 	}
+
+	
 	
 	
 }
