@@ -43,9 +43,8 @@ public class TaskService {
 		});
 	}
 	
-	public int deleteTask(UUID task_id) {
+	public void deleteTask(UUID task_id) {
 		taskRepo.deleteById(task_id);
-		return 0;
 	}
 	
 	

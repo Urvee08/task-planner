@@ -20,11 +20,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
-@Component
 @Entity
-@Table(name="Task")
+@Table(name="tasks")
 public class Task {
 	@Id @GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name="task_id")
@@ -39,8 +39,14 @@ public class Task {
 	@Enumerated(EnumType.STRING)
 	private Priority priority;
 
-	@Column(name="created_at")
+	@Column(name="created_at", nullable = false, updatable = false)
 	private LocalDate created_at;
+	
+
+    @PrePersist
+    protected void onCreate() {
+        this.created_at = LocalDate.now();
+    }
 	
 	@Column(name="due_date")
 	private LocalDate due_date;
@@ -58,10 +64,9 @@ public class Task {
 		super();
 	}
 
-	public Task(UUID task_id, String title, TaskStatus status, Priority priority, LocalDate created_at,
+	public Task(String title, TaskStatus status, Priority priority, LocalDate created_at,
 			LocalDate due_date, Category category, User user) {
 		super();
-		this.task_id = task_id;
 		this.title = title;
 		this.status = status;
 		this.priority = priority;
@@ -73,10 +78,6 @@ public class Task {
 
 	public UUID getTask_id() {
 		return task_id;
-	}
-
-	public void setTask_id(UUID task_id) {
-		this.task_id = task_id;
 	}
 
 	public String getTitle() {
@@ -147,8 +148,7 @@ public class Task {
 	@Override
 	public String toString() {
 		return "Task [task_id=" + task_id + ", title=" + title + ", status=" + status + ", priority=" + priority
-				+ ", created_at=" + created_at + ", due_date=" + due_date + ", category=" + category + ", user=" + user
-				+ ", subtasks=" + subtasks + "]";
+				+ ", created_at=" + created_at + ", due_date=" + due_date + "]";
 	}
 
 	

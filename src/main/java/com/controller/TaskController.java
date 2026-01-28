@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.entity.Category;
 import com.entity.Task;
 import com.entity.User;
 import com.service.TaskService;
 
 @RestController
 @RequestMapping("/todo/tasks")
-//@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:3000")
 public class TaskController {
 
 	@Autowired
@@ -29,6 +30,12 @@ public class TaskController {
 	public List<Task> getAllUserTasks(@RequestBody User user){
 		return taskServ.getAllUserTasks(user);
 	}
+	
+	@GetMapping("/getTaskByCategory/{category}")
+	public List<Task> getTaskByCategory(@RequestBody Category category){
+		return taskServ.getTaskByCategory(category);
+	}
+	
 	
 	@PostMapping("/addTask")
 	public Task addTask(@RequestBody Task task) {
@@ -41,7 +48,7 @@ public class TaskController {
 	}
 	
 	@DeleteMapping("/deleteTask/{task_id}")
-	public int deleteTask(@PathVariable UUID task_id) {
-		return taskServ.deleteTask(task_id);
+	public void deleteTask(@PathVariable UUID task_id) {
+		 taskServ.deleteTask(task_id);
 	}
 }

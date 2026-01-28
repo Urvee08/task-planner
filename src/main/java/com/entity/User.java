@@ -13,23 +13,28 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
-@Component
 @Entity
-@Table(name="User")
+@Table(name="users", 
+	uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email")
+    }
+)
 public class User {
 	
 	@Id @GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name="user_id")
 	private UUID user_id;
 	
-	@Column(name="username")
+	@Column(name="username", nullable=false, unique=true)
 	private String username;
 	
-	@Column(name="email")
+	@Column(name="email",nullable=false, unique=true)
 	private String email;
 	
-	@Column(name="password")
+	@Column(name="password",nullable=false)
 	private String password;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -42,9 +47,8 @@ public class User {
 		super();
 	}
 
-	public User(UUID user_id, String username, String email, String password) {
+	public User(String username, String email, String password) {
 		super();
-		this.user_id = user_id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -52,10 +56,6 @@ public class User {
 
 	public UUID getUser_id() {
 		return user_id;
-	}
-
-	public void setUser_id(UUID user_id) {
-		this.user_id = user_id;
 	}
 
 	public String getUsername() {
@@ -101,8 +101,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [user_id=" + user_id + ", username=" + username + ", email=" + email + ", password=" + password
-				+ ", tasks=" + tasks + ", categories=" + categories + "]";
+		return "User [user_id=" + user_id + ", username=" + username + ", email=" + email +
+				", password=" + password   +  "]";
 	}
 
 	

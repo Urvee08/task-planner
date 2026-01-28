@@ -17,9 +17,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-@Component
 @Entity
-@Table(name="SubTask")
+@Table(name="sub_tasks")
 public class SubTask {
 	
 	@Id @GeneratedValue(strategy = GenerationType.UUID)
@@ -39,9 +38,8 @@ public class SubTask {
 		super();
 	}
 
-	public SubTask(UUID subtask_id, String title, TaskStatus status, Task task) {
+	public SubTask(String title, TaskStatus status, Task task) {
 		super();
-		this.subtask_id = subtask_id;
 		this.title = title;
 		this.status = status;
 		this.task = task;
@@ -51,9 +49,6 @@ public class SubTask {
 		return subtask_id;
 	}
 
-	public void setSubtask_id(UUID subtask_id) {
-		this.subtask_id = subtask_id;
-	}
 
 	public String getTitle() {
 		return title;
@@ -81,7 +76,7 @@ public class SubTask {
 
 	@Override
 	public String toString() {
-		return "SubTask [subtask_id=" + subtask_id + ", title=" + title + ", status=" + status + ", task=" + task + "]";
+		return "SubTask [subtask_id=" + subtask_id + ", title=" + title + ", status=" + status + "]";
 	}
 	
 	

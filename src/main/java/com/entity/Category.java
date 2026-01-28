@@ -16,9 +16,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@Component
 @Entity
-@Table(name="Category")
+@Table(name="categories")
 public class Category {
 	
 	@Id @GeneratedValue(strategy = GenerationType.UUID)
@@ -38,19 +37,14 @@ public class Category {
 		super();
 	}
 
-	public Category(UUID category_id, String name, User user) {
+	public Category(String name, User user) {
 		super();
-		this.category_id = category_id;
 		this.name = name;
 		this.user = user;
 	}
 
 	public UUID getCategory_id() {
 		return category_id;
-	}
-
-	public void setCategory_id(UUID category_id) {
-		this.category_id = category_id;
 	}
 
 	public String getName() {
@@ -79,7 +73,7 @@ public class Category {
 
 	@Override
 	public String toString() {
-		return "Category [category_id=" + category_id + ", name=" + name + ", user=" + user + ", tasks=" + tasks + "]";
+		return "Category [category_id=" + category_id + ", name=" + name + "]";
 	}
 	
 	
